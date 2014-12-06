@@ -7,8 +7,6 @@ require_relative 'purchase'
 
 class CashierTest < Test::Unit::TestCase
 
-  # Called before every test method runs. Can be used
-  # to set up fixture information.
   def setup
     valid_border_start = Date.parse('2000-12-01')
     valid_border_end = Date.parse('2999-12-10')
@@ -25,14 +23,7 @@ class CashierTest < Test::Unit::TestCase
 
   end
 
-  # Called after every test method runs. Can be used to tear
-  # down fixture information.
-
-  def teardown
-    # Do nothing
-  end
-
-  # Fake test
+  # Testing merge of a customer's items
   def test_merge
     customer = Customer.new('Customer')
     customer.add_to_cart(Purchase.new(@product_b.name,5))
@@ -49,6 +40,7 @@ class CashierTest < Test::Unit::TestCase
     assert_equal(items_hash[@product_c.name].quantity, 12)
   end
 
+  # Testing customer handling
   def test_purchase
     customer1 = Customer.new('C1')
     purchase = Purchase.new(@product_a.name, 4)
@@ -57,6 +49,7 @@ class CashierTest < Test::Unit::TestCase
     assert_equal(cashier.handle_customer(customer1),28)
   end
 
+  # Testing customer handling with an offer
   def test_purchase_offer
     customer1 = Customer.new('C1')
     purchase = Purchase.new(@product_b.name, 14)

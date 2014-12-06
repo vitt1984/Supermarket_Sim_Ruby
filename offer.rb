@@ -1,5 +1,10 @@
 class Offer
 
+  # This class represents an offer assigned to a price
+  # - period_start and period_end mark the validity interval
+  # - items_threshold: this is the minimum no. of items that triggers the offer
+  # - paid_items: the items that will be paid by the customer when he buys @items_threshold
+
   attr_reader :period_start, :period_end
   attr_reader :items_threshold
   attr_reader :paid_items

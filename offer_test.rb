@@ -4,21 +4,12 @@ require 'Date'
 
 class OfferTest < Test::Unit::TestCase
 
-  # Called before every test method runs. Can be used
-  # to set up fixture information.
   def setup
     @base_price = 1
     @offer = Offer.new(Date.parse('2014-12-01'),Date.parse('2014-12-10'),3,2)
   end
 
-  # Called after every test method runs. Can be used to tear
-  # down fixture information.
-
-  def teardown
-    # Do nothing
-  end
-
-
+  # Testing offer validity
   def test_validity
     valid_date = Date.parse('2014-12-05')
     valid_border_start = Date.parse('2014-12-01')
@@ -33,6 +24,7 @@ class OfferTest < Test::Unit::TestCase
     assert_equal(@offer.is_valid(invalid_after),false)
   end
 
+  # Testing offer price calculation
   def test_price_calculation
     price_with_same_items = @offer.calculate_price(10,@base_price)
     assert_equal(price_with_same_items, (@base_price*2*3) + @base_price)

@@ -1,28 +1,22 @@
 require 'test/unit'
 require_relative 'price'
+require_relative 'offer'
 
 class PriceTest < Test::Unit::TestCase
 
-  # Called before every test method runs. Can be used
-  # to set up fixture information.
-  def setup
-    # Do nothing
-  end
-
-  # Called after every test method runs. Can be used to tear
-  # down fixture information.
-
-  def teardown
-    # Do nothing
-  end
-
+  # Testing exception raising with invalid values
   def test_invalid_init_values
     assert_raises(RuntimeError,"Can't allow offers on non-integer values") {Price.new(10, 1, false, true)}
     assert_nothing_raised {Price.new(10, 1, true, false)}
     assert_nothing_raised {Price.new(10, 1, true, true)}
     assert_nothing_raised {Price.new(10, 1, false, false)}
+
+    price_no_offer = Price.new(10, 1, true, false)
+    offer = Offer.new(Date.parse('2014-12-01'),Date.parse('2014-12-10'),3,2)
+    assert_raises(RuntimeError,"Cannot assign offers to this price") {price_no_offer.special_offer = offer}
   end
 
+  # Testing price calculation
   def test_price
     price_allowing_non_integer = Price.new(2.5)
     assert_equal(price_allowing_non_integer.calculate_price(2), 5)
@@ -37,6 +31,7 @@ class PriceTest < Test::Unit::TestCase
     assert_raises(RuntimeError,"This price can't be calculated for non integer quantities") {price_allowing_integer_only.calculate_price(2.5)}
   end
 
+  # Testing price calculation with offer
   def test_price_with_offer
     # TODO
   end

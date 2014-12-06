@@ -1,6 +1,6 @@
-require_relative 'purchase'
-
 class Customer
+
+  # This class represents a customer and the items in his/her shopping cart
 
   attr_reader :name
   attr_reader :items

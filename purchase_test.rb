@@ -6,25 +6,14 @@ require_relative 'offer'
 
 class PurchaseTest < Test::Unit::TestCase
 
-  # Called before every test method runs. Can be used
-  # to set up fixture information.
-  def setup
-    # do nothing
-  end
-
-  # Called after every test method runs. Can be used to tear
-  # down fixture information.
-
-  def teardown
-    # Do nothing
-  end
-
+  # Testing overloading of + operator
   def test_sum
     purchase1 = Purchase.new("A",15)
     purchase2 = Purchase.new("A",20)
     assert_equal((purchase1+purchase2).quantity,35)
   end
 
+  # Testing exception raising from + operator
   def test_invalid_sum
     purchase1 = Purchase.new("A",15)
     purchase2 = Purchase.new("B",20)
