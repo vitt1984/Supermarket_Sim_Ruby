@@ -13,8 +13,6 @@ class Price
   #   this answers the requirement of the exercise
   # - special_offer: class Offer, this allows for implementation of time based special offers
 
-  attr_reader :allow_integer_only, :allow_offers
-  attr_reader :price_by_quantity
   attr_accessor :special_offer
 
   def initialize(price, quantity = 1, allow_integer_only = false, allow_offers = false)
@@ -43,7 +41,7 @@ class Price
   end
 
   def special_offer=(offer)
-    raise 'Cannot assign offers to this price' unless allow_offers
+    raise 'Cannot assign offers to this price' unless @allow_offers
     @special_offer=offer
   end
 

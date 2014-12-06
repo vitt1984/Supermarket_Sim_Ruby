@@ -8,6 +8,7 @@ class Purchase
   attr_reader :quantity
 
   def initialize(name, quantity)
+    raise 'Quantity should be a positive number' unless quantity.is_a? Numeric and quantity > 0
     @name, @quantity = name, quantity
   end
 

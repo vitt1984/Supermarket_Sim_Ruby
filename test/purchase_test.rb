@@ -17,4 +17,9 @@ class PurchaseTest < Test::Unit::TestCase
     assert_raises(RuntimeError,"Cannot add purchase of different products") {purchase1+purchase2}
   end
 
+  def test_invalid_quantity
+    assert_raises(RuntimeError,"Quantity should be a positive number") {Purchase.new("A",-1)}
+    assert_raises(RuntimeError,"Quantity should be a positive number") {Purchase.new("A",0)}
+  end
+
 end

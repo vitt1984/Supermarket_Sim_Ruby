@@ -38,6 +38,7 @@ customer2.add_to_cart(Purchase.new(product_c.name,2))
 customer3.add_to_cart(Purchase.new(product_a.name,1))
 customer3.add_to_cart(Purchase.new(product_b.name,2))
 customer3.add_to_cart(Purchase.new(product_c.name,20))
+customer3.add_to_cart(Purchase.new(product_d.name,25))
 
 cashier.handle_customer(customer1)
 

@@ -7,10 +7,6 @@ class Offer
   # - items_threshold: this is the minimum no. of items that triggers the offer
   # - paid_items: the items that will be paid by the customer when he buys @items_threshold
 
-  attr_reader :period_start, :period_end
-  attr_reader :items_threshold
-  attr_reader :paid_items
-
   def initialize(period_start, period_end, items_threshold, paid_items)
     @period_start, @period_end, @items_threshold, @paid_items = period_start, period_end, items_threshold, paid_items
   end
@@ -18,6 +14,11 @@ class Offer
   def is_valid(date)
     @period_start <= date and date <= @period_end
   end
+
+  # Method to calculate the price based on the offer
+  # items are divided in:
+  # - reduced_items: the items that benefit from the reduction
+  # - non_reduced_items: the rest
 
   def calculate_price (quantity, price_by_quantity)
     reduced_items = (quantity / @items_threshold) * @paid_items
@@ -30,7 +31,7 @@ class Offer
   end
 
   def to_s
-    "Offer: Today: #{Date.today} Period: #{period_start} - #{period_end}. #{@items_threshold} for #{@paid_items}"
+    "Offer: Period: #{@period_start} - #{@period_end}. #{@items_threshold} for #{@paid_items}"
   end
 
 end

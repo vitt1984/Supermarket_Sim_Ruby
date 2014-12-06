@@ -7,7 +7,7 @@ class Cashier
   # - available_products: the list of the products available (each Product contains a price)
   #   can be reassigned to model changing prices
 
-  attr_writer :available_products
+  attr_accessor :available_products
 
   def initialize(available_products)
     @available_products = available_products
