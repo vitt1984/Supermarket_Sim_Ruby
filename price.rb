@@ -3,26 +3,28 @@ require 'Date'
 
 class Price
 
-  attr_reader :allowIntegerOnly, :allowOffers
-  attr_reader :priceByQuantity
-  attr_writer :specialOffer
+  attr_reader :allow_integer_only, :allow_offers
+  attr_reader :price_by_quantity
+  attr_writer :special_offer
 
-  def initialize(price, quantity = 1, allowIntegerOnly = false, allowOffers = false)
-    raise "Can't allow offers on non-integer values" if allowOffers and not allowIntegerOnly
-    priceByQuantity = price.to_f/quantity
-    @priceByQuantity, @allowIntegerOnly, @allowOffers = priceByQuantity, allowIntegerOnly, allowOffers
+  def initialize(price, quantity = 1, allow_integer_only = false, allow_offers = false)
+    raise "Can't allow offers on non-integer values" if allow_offers and not allow_integer_only
+    price_by_quantity = price.to_f/quantity
+    @price_by_quantity, @allow_integer_only, @allow_offers = price_by_quantity, allow_integer_only, allow_offers
   end
 
-  def calculatePrice (quantity)
-    raise "This quantity is not a number" if not quantity.is_a? Numeric
-    raise "This price can't be calculated for non integer quantities" if @allowIntegerOnly and not quantity.is_a? Integer
+  def calculate_price (quantity)
+    raise 'This quantity is not a number' unless quantity.is_a? Numeric
+    raise "This price can't be calculated for non integer quantities" if @allow_integer_only and not quantity.is_a? Integer
 
-    if not @specialOffer.nil? and @specialOffer.isValid(Date.today)
-      price = @specialOffer.calculatePrice(quantity, @priceByQuantity)
+    if not @special_offer.nil? and @special_offer.is_valid(Date.today)
+      puts "Offer: #{@special_offer}"
+      price = @special_offer.calculate_price(quantity, @price_by_quantity)
     else
-      puts "Price: #{@priceByQuantity} * #{quantity}"
-      price = @priceByQuantity * quantity
+      price = @price_by_quantity * quantity
+      puts "Price: #{@price_by_quantity} * #{quantity} = #{price}"
     end
+    price
   end
 
   def to_s

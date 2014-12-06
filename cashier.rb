@@ -3,15 +3,16 @@ require_relative 'customer'
 class Cashier
 
   def self.handle_customer(customer)
-
+    puts "#{customer} checking out..."
     merged_items = merge_items(customer.items)
 
     price = 0.0
-    merged_items.each do |item|
+    merged_items.values.each do |item|
+      puts "Scanning #{item}"
       price += item.get_purchase_price
     end
 
-    puts customer, "needs to pay", price
+    puts "#{customer} needs to pay #{price}"
   end
 
   def self.merge_items(items)

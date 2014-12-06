@@ -11,12 +11,16 @@ class Purchase
   end
 
   def get_purchase_price
-    @product.price.calculatePrice(@quantity)
+    @product.price.calculate_price(@quantity)
   end
 
   def +(other)
-    raise "Cannot add purchase of different products" unless @product == other.product
+    raise 'Cannot add purchase of different products' unless @product == other.product
     Purchase.new(@product, @quantity + other.quantity)
+  end
+
+  def to_s
+    "#{@product}: #{@quantity}"
   end
 
 end
