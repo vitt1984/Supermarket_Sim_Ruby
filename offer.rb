@@ -13,13 +13,17 @@ class Offer
   end
 
   def calculatePrice (quantity, priceByQuantity)
-    reducedPriceItems = (quantity / @itemsThreshold) * @offeredItemsForThreshold * priceByQuantity
-    normalPriceItems  = (quantity % @itemsThreshold) * priceByQuantity
+    reducedItems = (quantity / @itemsThreshold) * @offeredItemsForThreshold
+    nonReducedItems = (quantity % @itemsThreshold)
+    reducedPriceItems = reducedItems * priceByQuantity
+    normalPriceItems  = nonReducedItems * priceByQuantity
+    puts "Price: Reduced items #{quantity - nonReducedItems} paid as #{reducedPriceItems}"
+    puts "Price: Non reduced items #{nonReducedItems} paid as #{normalPriceItems}"
     price = reducedPriceItems + normalPriceItems
   end
 
   def to_s
-    # TODO
+    "Offer: Today: #{Date.today} Period: #{periodStart} - #{periodEnd}. #{@itemsThreshold} for #{@offeredItemsForThreshold}"
   end
 
 end

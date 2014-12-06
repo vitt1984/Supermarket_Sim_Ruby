@@ -16,7 +16,6 @@ class PriceTest < Test::Unit::TestCase
     # Do nothing
   end
 
-
   def test_invalid_init_values
     assert_raises(RuntimeError,"Can't allow offers on non-integer values") {Price.new(10, 1, false, true)}
     assert_nothing_raised {Price.new(10, 1, true, false)}

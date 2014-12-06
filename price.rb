@@ -1,4 +1,3 @@
-
 require_relative 'offer'
 require 'Date'
 
@@ -17,10 +16,12 @@ class Price
   def calculatePrice (quantity)
     raise "This quantity is not a number" if not quantity.is_a? Numeric
     raise "This price can't be calculated for non integer quantities" if @allowIntegerOnly and not quantity.is_a? Integer
-    if @specialOffer.nil? or @specialOffer.isValid(Date.today)
-      price = @priceByQuantity * quantity
-    else
+
+    if not @specialOffer.nil? and @specialOffer.isValid(Date.today)
       price = @specialOffer.calculatePrice(quantity, @priceByQuantity)
+    else
+      puts "Price: #{@priceByQuantity} * #{quantity}"
+      price = @priceByQuantity * quantity
     end
   end
 
