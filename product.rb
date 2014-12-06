@@ -1,7 +1,7 @@
 class Product
 
   attr_reader :name
-  attr_reader :price
+  attr_accessor :price
 
   def initialize(name, price)
     @name, @price = name, price

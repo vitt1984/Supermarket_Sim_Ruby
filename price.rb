@@ -5,7 +5,7 @@ class Price
 
   attr_reader :allow_integer_only, :allow_offers
   attr_reader :price_by_quantity
-  attr_writer :special_offer
+  attr_accessor :special_offer
 
   def initialize(price, quantity = 1, allow_integer_only = false, allow_offers = false)
     raise "Can't allow offers on non-integer values" if allow_offers and not allow_integer_only

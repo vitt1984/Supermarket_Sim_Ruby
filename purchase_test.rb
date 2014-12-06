@@ -9,12 +9,7 @@ class PurchaseTest < Test::Unit::TestCase
   # Called before every test method runs. Can be used
   # to set up fixture information.
   def setup
-    valid_border_start = Date.parse('2000-12-01')
-    valid_border_end = Date.parse('2999-12-10')
-
-    @product_a = Product.new('A', Price.new(7))
-    @product_b = Product.new('B', Price.new(5,1,true,true))
-    @product_b.price.special_offer = Offer.new(valid_border_start, valid_border_end, 3, 2)
+    # do nothing
   end
 
   # Called after every test method runs. Can be used to tear
@@ -24,13 +19,16 @@ class PurchaseTest < Test::Unit::TestCase
     # Do nothing
   end
 
-  def test_purchase
-    purchase = Purchase.new(@product_a, 4)
-    assert_equal(purchase.get_purchase_price,28)
+  def test_sum
+    purchase1 = Purchase.new("A",15)
+    purchase2 = Purchase.new("A",20)
+    assert_equal((purchase1+purchase2).quantity,35)
   end
 
-  def test_purchase_offer
-    purchase = Purchase.new(@product_b, 14)
-    assert_equal(purchase.get_purchase_price,5*2*4+5*2)
+  def test_invalid_sum
+    purchase1 = Purchase.new("A",15)
+    purchase2 = Purchase.new("B",20)
+    assert_raises(RuntimeError,"Cannot add purchase of different products") {purchase1+purchase2}
   end
+
 end
