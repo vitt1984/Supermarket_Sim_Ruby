@@ -1,4 +1,5 @@
 require_relative 'offer'
+require_relative 'audit_singleton'
 require 'Date'
 
 class Price
@@ -32,11 +33,11 @@ class Price
     raise "This price can't be calculated for non integer quantities" if @allow_integer_only and not quantity.is_a? Integer
 
     if not @special_offer.nil? and @special_offer.is_valid(Date.today)
-      puts "Offer: #{@special_offer}"
+      AuditSingleton.instance.log  "Offer: #{@special_offer}"
       price = @special_offer.calculate_price(quantity, @price_by_quantity)
     else
       price = @price_by_quantity * quantity
-      puts "Price: #{@price_by_quantity} * #{quantity} = #{price}"
+      AuditSingleton.instance.log  "Price: #{@price_by_quantity} * #{quantity} = #{price}"
     end
     price
   end

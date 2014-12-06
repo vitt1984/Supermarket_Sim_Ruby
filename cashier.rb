@@ -1,4 +1,5 @@
 require_relative 'customer'
+require_relative 'audit_singleton'
 
 class Cashier
 
@@ -18,15 +19,15 @@ class Cashier
   # Returns the total the customer has to pay
 
   def handle_customer(customer)
-    puts "#{customer} checking out..."
+    AuditSingleton.instance.log "#{customer} checking out..."
     merged_items = merge_items(customer.items)
 
     total = 0.0
     merged_items.values.each do |item|
-      puts "Scanning #{item.name} #{item}"
+      AuditSingleton.instance.log  "Scanning #{item.name} #{item}"
       total += @available_products[item.name].price.calculate_price(item.quantity)
     end
-    puts "#{customer} needs to pay #{total}"
+    AuditSingleton.instance.log  "#{customer} needs to pay #{total}"
     total
   end
 

@@ -1,3 +1,5 @@
+require_relative 'audit_singleton'
+
 class Offer
 
   # This class represents an offer assigned to a price
@@ -22,8 +24,8 @@ class Offer
     non_reduced_items = (quantity % @items_threshold)
     reduced_price_items = reduced_items * price_by_quantity
     normal_price_items  = non_reduced_items * price_by_quantity
-    puts "Price: Reduced items #{quantity - non_reduced_items} = #{reduced_price_items}"
-    puts "Price: Non reduced items #{non_reduced_items} = #{normal_price_items}"
+    AuditSingleton.instance.log  "Price: Reduced items #{quantity - non_reduced_items} = #{reduced_price_items}"
+    AuditSingleton.instance.log  "Price: Non reduced items #{non_reduced_items} = #{normal_price_items}"
     reduced_price_items + normal_price_items
   end
 
