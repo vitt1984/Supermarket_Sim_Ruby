@@ -5,6 +5,7 @@ require 'Date'
 class OfferTest < Test::Unit::TestCase
 
   def setup
+    AuditSingleton.instance.enable_stdout=false
     @base_price = 1
     @offer = Offer.new(Date.parse('2014-12-01'),Date.parse('2014-12-10'),3,2)
   end
@@ -26,10 +27,10 @@ class OfferTest < Test::Unit::TestCase
 
   # Testing offer price calculation
   def test_price_calculation
-    price_with_same_items = @offer.calculate_price(10,@base_price)
+    price_with_same_items = @offer.calculate_price(10,@base_price,'€')
     assert_equal(price_with_same_items, (@base_price*2*3) + @base_price)
 
-    price_with_more_items = @offer.calculate_price(9,@base_price)
+    price_with_more_items = @offer.calculate_price(9,@base_price,'€')
     assert_equal(price_with_more_items, (@base_price*2*3))
   end
 end

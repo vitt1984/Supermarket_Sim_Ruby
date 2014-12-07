@@ -8,6 +8,7 @@ require_relative '../lib/purchase'
 class CashierTest < Test::Unit::TestCase
 
   def setup
+    AuditSingleton.instance.enable_stdout=false
     valid_border_start = Date.parse('2000-12-01')
     valid_border_end = Date.parse('2999-12-10')
 
@@ -32,7 +33,7 @@ class CashierTest < Test::Unit::TestCase
     customer.add_to_cart(Purchase.new(@product_a.name,10))
     customer.add_to_cart(Purchase.new(@product_b.name,3))
 
-    cashier = Cashier.new(@available_products)
+    cashier = Cashier.new(@available_products,'€')
     items_hash = cashier.merge_items(customer.items)
 
     assert_equal(items_hash[@product_a.name].quantity, 10)
@@ -45,7 +46,7 @@ class CashierTest < Test::Unit::TestCase
     customer1 = Customer.new('C1')
     purchase = Purchase.new(@product_a.name, 4)
     customer1.add_to_cart(purchase)
-    cashier = Cashier.new(@available_products)
+    cashier = Cashier.new(@available_products,'€')
     assert_equal(cashier.handle_customer(customer1),28)
   end
 
@@ -54,7 +55,7 @@ class CashierTest < Test::Unit::TestCase
     customer1 = Customer.new('C1')
     purchase = Purchase.new(@product_b.name, 14)
     customer1.add_to_cart(purchase)
-    cashier = Cashier.new(@available_products)
+    cashier = Cashier.new(@available_products,'€')
     assert_equal(cashier.handle_customer(customer1),5*2*4+5*2)
   end
 end

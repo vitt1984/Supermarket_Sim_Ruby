@@ -20,13 +20,13 @@ class Offer
   # - reduced_items: the items that benefit from the reduction
   # - non_reduced_items: the rest
 
-  def calculate_price (quantity, price_by_quantity)
+  def calculate_price (quantity, single_unit_price, currency='')
     reduced_items = (quantity / @items_threshold) * @paid_items
     non_reduced_items = (quantity % @items_threshold)
-    reduced_price_items = reduced_items * price_by_quantity
-    normal_price_items  = non_reduced_items * price_by_quantity
-    AuditSingleton.instance.log  "Price: Reduced items #{quantity - non_reduced_items} = #{reduced_price_items}"
-    AuditSingleton.instance.log  "Price: Non reduced items #{non_reduced_items} = #{normal_price_items}"
+    reduced_price_items = reduced_items * single_unit_price
+    normal_price_items  = non_reduced_items * single_unit_price
+    AuditSingleton.instance.log  "Price: Reduced items #{quantity - non_reduced_items} (#{reduced_items}) * #{single_unit_price} #{currency} = #{reduced_price_items} #{currency} "
+    AuditSingleton.instance.log  "Price: Non reduced items #{non_reduced_items} * #{single_unit_price} #{currency} = #{normal_price_items} #{currency}"
     reduced_price_items + normal_price_items
   end
 

@@ -13,7 +13,7 @@ class Purchase
   end
 
   def +(other)
-    raise 'Cannot add purchase of different products' unless @name == other.name
+    raise 'Cannot sum purchase of different products' unless @name == other.name
     Purchase.new(@name, @quantity + other.quantity)
   end
 

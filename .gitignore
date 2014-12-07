@@ -35,3 +35,6 @@ build/
 
 # Audit log
 *.log
+
+# RubyMine files
+.idea/
