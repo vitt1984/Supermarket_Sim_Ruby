@@ -1,5 +1,6 @@
 require 'test/unit'
 require_relative '../lib/purchase'
+require_relative '../lib/audit_singleton'
 
 class PurchaseTest < Test::Unit::TestCase
 

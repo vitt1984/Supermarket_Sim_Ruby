@@ -13,9 +13,9 @@ class CashierTest < Test::Unit::TestCase
     valid_border_end = Date.parse('2999-12-10')
 
     @product_a = Product.new('A', Price.new(7))
-    @product_b = Product.new('B', Price.new(5,1,true,true))
+    @product_b = Product.new('B', Price.new(5, { :allow_integer_only => true, :allow_offers => true }))
     @product_c = Product.new('C', Price.new(3))
-    @product_b.price.special_offer = Offer.new(valid_border_start, valid_border_end, 3, 2)
+    @product_b.price.add_offer(Offer.new(valid_border_start, valid_border_end, 3, 2))
 
     @available_products = Hash.new
     @available_products[@product_a.name] = @product_a

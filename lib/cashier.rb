@@ -27,7 +27,7 @@ class Cashier
     merged_items.values.each do |item|
       AuditSingleton.instance.log  "Scanning #{item.name} #{item}"
       raise "Product #{item.name} is not registered" unless @available_products.has_key?(item.name)
-      total += @available_products[item.name].price.calculate_price(item.quantity, @currency)
+      total += @available_products[item.name].price.calculate_price(item.quantity, { :currency => @currency })
     end
     AuditSingleton.instance.log  "#{customer} needs to pay #{total} #{@currency}"
     total
