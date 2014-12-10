@@ -13,7 +13,7 @@ class Offer
   end
 
   def valid?(date)
-    @period_start <= date and date <= @period_end
+    @period_start <= date && date <= @period_end
   end
 
   # Method to calculate the price based on the offer

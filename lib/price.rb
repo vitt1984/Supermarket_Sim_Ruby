@@ -27,7 +27,7 @@ class Price
     @single_unit_price = price.to_f/options[:quantity]
     @allow_integer_only, @allow_offers = options[:allow_integer_only], options[:allow_offers]
 
-    raise "Can't allow offers on non-integer values" if @allow_offers and !@allow_integer_only
+    raise "Can't allow offers on non-integer values" if @allow_offers && !@allow_integer_only
   end
 
   # This method calculates the price for a quantity:
@@ -68,7 +68,7 @@ class Price
 
   def to_s
     "Price: #{@single_unit_price}, Integer only: #{@allow_integer_only}, "\
-    "Offers allowed: #{@allow_offers}. #{@special_offer}"
+    "Offers: #{@offers}"
   end
 
 end
